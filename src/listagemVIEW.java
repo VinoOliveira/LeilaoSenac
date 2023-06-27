@@ -209,7 +209,6 @@ public class listagemVIEW extends javax.swing.JFrame {
             model.setNumRows(0);
             
             ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
-            
             for(int i = 0; i < listagem.size(); i++){
                 model.addRow(new Object[]{
                     listagem.get(i).getId(),
