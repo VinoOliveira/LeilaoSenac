@@ -21,7 +21,7 @@ public class conectaDAO {
         Connection conn = null;
         
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11?user=root&password=root");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11?allowPublicKeyRetrieval=true&useSSL=false&user=root&password=root");
             
         } catch (SQLException erro){
             JOptionPane.showMessageDialog(null, "Erro ConectaDAO " + erro.getMessage());
