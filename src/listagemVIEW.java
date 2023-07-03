@@ -204,6 +204,9 @@ public class listagemVIEW extends javax.swing.JFrame {
                 lance = JOptionPane.showInputDialog(null, "Entrada inválida! Digite um valor para dar o lance:");
             }
             int valor = Integer.valueOf(lance);
+            if(validar.validarLance(valor,id) == false){
+                throw new Exception("Um novo lance deve ser sempre maior que o lance atual");
+            }
             produtosDao.darLance(id,valor);
             listarProdutos();
         } catch (Exception e) {
