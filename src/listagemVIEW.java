@@ -161,12 +161,16 @@ public class listagemVIEW extends javax.swing.JFrame {
 
     private void btnArremateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArremateActionPerformed
         ProdutosDAO produtosdao = new ProdutosDAO();
+        Validacoes validar = new Validacoes();
         try {
             if (id_produto_venda.getText().isEmpty()) {
                 throw new Exception("Informe o id para realizar a venda");
             }
-            String id = id_produto_venda.getText();
-            produtosdao.venderProduto(Integer.valueOf(id));
+            int id = Integer.valueOf(id_produto_venda.getText());
+            if(validar.validarID(id) == false){
+                throw new Exception("Produto não encontrado, confira o ID");
+            }
+            produtosdao.venderProduto(id);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "erro ao vender produto, " + e.getMessage());
         }
@@ -186,15 +190,19 @@ public class listagemVIEW extends javax.swing.JFrame {
 
     private void btnLanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanceActionPerformed
         ProdutosDAO produtosDao = new ProdutosDAO();
+        Validacoes validar = new Validacoes();
         try {
             if (id_produto_venda.getText().isEmpty()) {
                 throw new Exception("Por favor preencha o campo (ID)");
+            }
+            int id = Integer.valueOf(id_produto_venda.getText());
+            if(validar.validarID(id) == false){
+                throw new Exception("Produto não encontrado, confira o ID");
             }
             String lance = JOptionPane.showInputDialog("informe o valor do lance");
             while (!isNumeric(lance)) {
                 lance = JOptionPane.showInputDialog(null, "Entrada inválida! Digite um valor para dar o lance:");
             }
-            int id = Integer.valueOf(id_produto_venda.getText());
             int valor = Integer.valueOf(lance);
             produtosDao.darLance(id,valor);
             listarProdutos();
