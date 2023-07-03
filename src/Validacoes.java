@@ -25,7 +25,7 @@ public class Validacoes {
             return false;
         }
     }
-    /*um novo lance sempre deve ser maior que o lance atual*/
+    /*um novo lance sempre deve ser maior que o lance inicial e lance atual*/
     public boolean validarLance(int valor, int id){
         ProdutosDAO produtosDao = new ProdutosDAO();
         ArrayList<ProdutosDTO> produtos = produtosDao.listarProdutos();
@@ -35,12 +35,38 @@ public class Validacoes {
             }
             for(ProdutosDTO produto : produtos){
                 if(produto.getId() == id){
-                    if(produto.getLanceAtual() < valor){
-                        return true;
+                    if(produto.getLanceInicial() < valor){
+                        if(produto.getLanceAtual() < valor){
+                            return true;
+                        }
+                    }
+
+                }
+            }
+        }catch (Exception e){
+        }
+        return false;
+    }
+    //para arrematar um item o valor de arremate dele ver maior que zero e maior que o lance atual
+    public boolean validarArremate(int id){
+        ProdutosDAO produtosDao = new ProdutosDAO();
+        ArrayList<ProdutosDTO> produtos = produtosDao.listarProdutos();
+
+        try {
+            if(validarID(id) == false){
+                throw new Exception("Produto não encontrado, confira o ID");
+            }
+            for(ProdutosDTO produto : produtos){
+                if(produto.getId() == id){
+                    if(produto.getArremate() > 0){
+                        if(produto.getLanceAtual() < produto.getArremate()){
+                            return true;
+                        }
                     }
                 }
             }
         }catch (Exception e){
+
         }
         return false;
     }

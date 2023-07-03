@@ -170,6 +170,9 @@ public class listagemVIEW extends javax.swing.JFrame {
             if(validar.validarID(id) == false){
                 throw new Exception("Produto não encontrado, confira o ID");
             }
+            if(validar.validarArremate(id) == false){
+                throw new Exception("O valor de arremate é zero ou o lance atual é maior que o valor de arremate");
+            }
             produtosdao.venderProduto(id);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "erro ao vender produto, " + e.getMessage());
